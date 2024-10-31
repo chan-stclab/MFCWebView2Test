@@ -1,0 +1,374 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="">
+    <title>Waiting Room</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Noto+Sans+KR:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <style>
+        .nf-vwr-background {
+            all: unset;
+            z-index: 99999;
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            grid-template-rows: auto 1fr;
+            grid-template-areas: ". content ."". . .";
+            overflow: auto;
+            box-sizing: border-box;
+            width: 100%;
+            height: 100%;
+            padding: 40px 24px;
+            background-color: #2F303399;
+            background-image: url();
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .nf-vwr-image3 {
+            all: unset;
+            position: relative;
+            grid-area: content;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            border-radius: 16px;
+            box-sizing: border-box;
+            width: 100%;
+            max-width: 400px;
+            min-width: 232px;
+            padding: 24px;
+            background-color: #FAFAFBff;
+            background-image: url();
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .nf-vwr-image1 {
+            all: unset;
+            position: relative;
+            display: block;
+            width: 100%;
+            padding-top: 25%;
+            background-color: #FFFFFF00;
+            background-image: url();
+            background-position: center;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        .nf-vwr-image2 {
+            all: unset;
+            position: relative;
+            display: block;
+            width: 100%;
+            padding-top: 100%;
+            background-color: #FFFFFF00;
+            background-image: url();
+            background-position: center;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        .nf-vwr-title {
+            all: unset;
+            display: block;
+            color: #2F3033;
+            font-family: "Noto Sans", "Noto Sans JP", "Noto Sans KR", sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            line-height: 160%;
+            white-space: pre-wrap;
+            word-break: break-word;
+            text-align: center;
+        }
+
+        .nf-vwr-entering-message {
+            display: none;
+            opacity: 0.5;
+            color: #2F3033;
+            text-align: center;
+            font-family: "Noto Sans", "Noto Sans JP", "Noto Sans KR", sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 100%;
+        }
+
+        .nf-vwr-metrics-ahead-count {
+            all: unset;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            align-self: stretch;
+            width: 100%;
+        }
+
+        .nf-vwr-metrics-key {
+            all: unset;
+            color: #2F3033;
+            text-align: center;
+            font-family: "Noto Sans", "Noto Sans JP", "Noto Sans KR", sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 100%;
+        }
+
+        .nf-vwr-metrics-ahead-count-value {
+            all: unset;
+            color: #3354FF;
+            text-align: center;
+            font-size: 40px;
+            font-family: "Noto Sans", "Noto Sans JP", "Noto Sans KR", sans-serif;
+            font-weight: 700;
+            line-height: 100%;
+        }
+
+        .nf-vwr-metrics-progress {
+            all: unset;
+            display: block;
+            appearance: none;
+            box-sizing: border-box;
+            border-radius: 8px;
+            width: 100%;
+            height: 11px;
+        }
+
+            .nf-vwr-metrics-progress::-webkit-progress-bar {
+                border-radius: 100px;
+                background-color: rgba(47, 48, 51, 0.05);
+            }
+
+            .nf-vwr-metrics-progress::-webkit-progress-value {
+                border-radius: 100px;
+                background: #3354FF;
+                box-shadow: 0px 4px 8px 0px rgba(75, 76, 79, 0.13);
+            }
+
+        .nf-vwr-marquee-background {
+            all: unset;
+            position: relative;
+            display: none;
+            overflow: hidden;
+            border-radius: 100px;
+            box-sizing: border-box;
+            width: 100%;
+            height: 11px;
+            background-color: rgba(47, 48, 51, 0.05);
+        }
+
+        .nf-vwr-marquee-object {
+            position: absolute;
+            top: -20%;
+            left: -20%;
+            border-radius: 100px;
+            width: 20%;
+            height: 140%;
+            background-color: #3354FF;
+            animation: marquee 2s linear infinite;
+            filter: blur(4px);
+            transform: translate3d(0, 0, 0);
+        }
+
+        @keyframes marquee {
+
+            0%, 100% {
+                left: -20%
+            }
+
+            50% {
+                left: 100%
+            }
+        }
+
+        .nf-vwr-entering {
+            all: unset;
+            display: none;
+            align-items: center;
+            gap: 5px;
+            height: 20px;
+            text-align: center;
+            div
+
+        {
+            display: inline-block;
+            animation: entering 1.2s infinite ease-in-out both;
+            border-radius: 100%;
+            width: 12px;
+            height: 12px;
+            background-color: #3354FF;
+        }
+
+        .nf-vwr-entering-dot2 {
+            animation-delay: 0.4s;
+        }
+
+        .nf-vwr-entering-dot3 {
+            animation-delay: 0.8s;
+        }
+
+        }
+
+        @keyframes entering {
+            0% {
+                opacity: 0.1;
+                transform: scale(0.6);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            100% {
+                opacity: 0.5;
+                transform: scale(0.6);
+            }
+        }
+
+        .nf-vwr-column-gap-12 {
+            all: unset;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .nf-vwr-metrics-wait-time {
+            all: unset;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 100%;
+        }
+
+        .nf-vwr-metrics-behind-count {
+            all: unset;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 100%;
+        }
+
+        .nf-vwr-metrics-value {
+            all: unset;
+            color: #3354FF;
+            font-family: "Noto Sans", "Noto Sans JP", "Noto Sans KR", sans-serif;
+            font-weight: 700;
+        }
+
+        .nf-vwr-description {
+            all: unset;
+            display: block;
+            width: 100%;
+            padding: 8px 0;
+            color: #2F3033;
+            text-align: center;
+            font-family: "Noto Sans", "Noto Sans JP", "Noto Sans KR", sans-serif;
+            font-size: 15px;
+            font-weight: 400;
+            line-height: 160%;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .nf-vwr-cancel {
+            all: unset;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 8px;
+            box-sizing: border-box;
+            width: 100%;
+            padding: 16px 24px;
+            background-color: #EDEEF1ff;
+            cursor: pointer;
+            color: #7F8083ff;
+            text-align: center;
+            font-family: "Noto Sans", "Noto Sans JP", "Noto Sans KR", sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 100%;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .nf-vwr-info {
+            all: unset;
+            opacity: 0.5;
+            color: #2F3033;
+            text-align: center;
+            font-family: "Noto Sans", "Noto Sans JP", "Noto Sans KR", sans-serif;
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 160%;
+        }
+
+        .nf-vwr-copyright {
+            all: unset;
+            opacity: 0.5;
+            color: #2F3033;
+            text-align: center;
+            font-family: "Noto Sans", "Noto Sans JP", "Noto Sans KR", sans-serif;
+            font-size: 10px;
+            font-weight: 400;
+            line-height: 100%;
+        }
+    </style>
+</head>
+<body>    
+    <div class="nf-vwr-background">
+        <div class="nf-vwr-image3">
+            <div class="nf-vwr-image1"></div>
+            <div class="nf-vwr-image2"></div>
+            <div class="nf-vwr-title">제목을 입력해주세요.</div>
+            <div id="nf-vwr-entering-message" class="nf-vwr-entering-message">You will enter the site shortly.</div>
+            <div id="nf-vwr-metrics-essential" class="nf-vwr-column-gap-12">
+                <div id="nf-vwr-metrics-ahead-count" class="nf-vwr-metrics-ahead-count">
+                    <p class="nf-vwr-metrics-key">My waiting number</p>
+                    <p id="nf-vwr-metrics-ahead-count-value" class="nf-vwr-metrics-ahead-count-value"></p>
+                </div>
+                <progress id="nf-vwr-metrics-progress" class="nf-vwr-metrics-progress" max="100" value="0"></progress>
+            </div>
+            <div id="nf-vwr-entering" class="nf-vwr-entering">
+                <div class="nf-vwr-entering-dot1"></div>
+                <div class="nf-vwr-entering-dot2"></div>
+                <div class="nf-vwr-entering-dot3"></div>
+            </div>
+            <div id="nf-vwr-marquee" class="nf-vwr-marquee-background">
+                <div class="nf-vwr-marquee-object"></div>
+            </div>
+            <div id="nf-vwr-metrics-optional" class="nf-vwr-column-gap-12">
+                <div id="nf-vwr-metrics-wait-time" class="nf-vwr-metrics-wait-time">
+                    <span class="nf-vwr-metrics-key">Estimated Wait Time</span>
+                    <span id="nf-vwr-metrics-wait-time-value" class="nf-vwr-metrics-value"></span>
+                </div>
+                <div id="nf-vwr-metrics-behind-count" class="nf-vwr-metrics-behind-count">
+                    <span class="nf-vwr-metrics-key">Queue behind</span>
+                    <span id="nf-vwr-metrics-behind-count-value" class="nf-vwr-metrics-value"></span>
+                </div>
+            </div>
+            <div class="nf-vwr-description">내용을 입력해주세요.</div>
+            <button id="nf-vwr-cancel" class="nf-vwr-cancel" data-nf-cancel-url="">닫기</button>
+            <div class="nf-vwr-column-gap-12">
+                <div class="nf-vwr-info">Clicking Refresh, Backspace, or closing the tab will direct you to the end of the queue.</div>
+                <div class="nf-vwr-copyright">Powered by <strong>NetFUNNEL</strong> | © STCLab Inc.</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
